@@ -22,3 +22,8 @@ hr {
 	border-bottom: 2px dashed;
 	color: white;
 }
+ul {
+	background: #F09C9C;
+	list-style-position: inside;
+	padding: 5px;
+}
