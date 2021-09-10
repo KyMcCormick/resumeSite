@@ -1,5 +1,5 @@
 body {
-	background-color: #F08080;
+	background-color: #F9CFCF;
 }
 
 h1 {
@@ -8,6 +8,8 @@ h1 {
 }
 
 p {
+	color: white;
+	text-align: center;
 
 	font-family: Lucida Sans Typewriter;	
 	font-size: 16px;
