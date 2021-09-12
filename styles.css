@@ -63,8 +63,7 @@ ul li {
 }
 
 table, th, td {
-	border: 1px dashed white;
-	border: colllapse;
+	border: 1px dashed white colllapse;
 	color: white
 	margin-right: 15px;
 }
