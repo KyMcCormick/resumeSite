@@ -64,6 +64,8 @@ ul li {
 
 table, th, td {
 	border: 1px dashed white colllapse;
+	border-spacing: 10px;
+	border-collapse: separate;
 	color: white;
 	margin-right: 15px;
 }
