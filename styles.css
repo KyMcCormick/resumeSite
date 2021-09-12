@@ -1,5 +1,5 @@
 body {
-	background-color: #B2AC88;
+	background-color: #78866B;
 	margin: 1rem auto;
 	max-width: 80ch;
 }
@@ -55,7 +55,7 @@ hr {
 	color: white;
 }
 ul li {
-	background: #78866B;
+	background: #929E86;
 	list-style-position: inside;
 	padding: 10px;
 	margin-right: 10px;
