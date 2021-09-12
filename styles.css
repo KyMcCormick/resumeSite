@@ -64,5 +64,6 @@ ul li {
 
 table, th, td {
 	border: 1px dashed white;
+	border-collapse: colllapse;
 	color: white
 }
