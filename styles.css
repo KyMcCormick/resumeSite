@@ -37,7 +37,7 @@ h3 {
 
 h4 {
 	color: white;
-	font-size: 20;
+	font-size: 24;
 	text-align: left;
 }
 
@@ -64,6 +64,10 @@ ul li {
 
 table, th, td {
 	border: 1px dashed white colllapse;
-	color: white
+	color: white;
 	margin-right: 15px;
+}
+table.center {
+	margin-left: auto;
+	margin-right: auto;
 }
