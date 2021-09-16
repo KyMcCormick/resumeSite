@@ -15,10 +15,16 @@ i {
 	font-size: 18;
 }
 
-a {
+a:link {
 	color : white;
 	font-family: Lucida Sans Typewriter;
-	font-size: 18
+	font-size: 18;
+}
+
+a:hover {
+	color : 5F6A54;
+	font-family: Lucida Sans Typewriter;
+	font-seize: 18;
 }
 
 h1 {
