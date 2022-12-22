@@ -171,8 +171,10 @@
 	<br>
 	<img src="./wikipediaImages/main.PNG">
 	<br><br>
+	<p>
 	With that, we now have a fully functional webscraper that then updates our page. To see the page, you may click the today's info link in the navigation bar. To see
 	the full source code, you may click <a href="https://github.com/KyMcCormick/wikipediaScraper">here</a>.
+	</p>
 	<hr>
 	<p> This leaves one part. We need to automate this so it runs every morning. <br>
 	2.c How can I set this python program to run every morning on startup?
@@ -184,7 +186,9 @@
 	In triggers press new trigger, on startup, and then ok. In actions, press new action, put in the path to the python.exe. This can be found by doing "where python"
 	in the command line. In the add arguments section, put the path to the scraping program. I additionally added an action that runs a bash script to add, commit,
 	and push the file to git. This is completely optional.
+	</p>
 	<hr>
+	<p>
 	Now, let's answer question 3 in detail.<br>
 	Besides basic python and html, we needed to use:
 	<ul>
