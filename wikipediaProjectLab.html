@@ -56,7 +56,24 @@
 	<img src="./wikipediaImages/wikipedia.PNG">
 
 	<p> All of that is great, and a lot of information. If we are to do anything with this we must get it into <br>
-	our program which, well, that's a good question. How does tsome program that lives on your computer <br>
-	and/or github get info from a website that may be hosted on a server halfway across the world? </p>
+	our program which, well, that's a good question. How does tsome program that lives on your <br>
+	computer and/or github get info from a website that may be hosted on a server halfway across the world? </p>
+
+	<p> 2/3.a How do we get this info to our program? </p>
+	<p style="margin-left:20px">
+	This is where requests come in. http is a lovely little thing we take for granted and most cs students just overlook, but
+	using the requests module, which is built on top of older http libraries, we can get all the info we need. The request module
+	is so popular, there is currently a push to get it included in python by default. We can create a request object that gets
+	the page for the current date. We'll come back to the question of the date later, but for now let's say it is hardcoded as 
+	December_13. <br> <br>
+	We do not (sadly) need to get into the weeds on how http works, but here is a simple explanation. 
+	http allows us to communicate requests and responces between two places, call one a client, who requests, and a server,
+	who responds. When we connect to some website, that site is really hosted somewhere on some webserver, 
+	and through TCP and IP (transport and internet layers) we get there and have a connection. Great. http
+	then allows for us to actually send a representation the current state of the site from the server to the client so we see
+	all the pretty text and images and all the rest. When we do this with the request module, we are sending a GET request
+	that will retrieve all the data aka html and css nonsense. Notably, we also want ensure the webpage we get is ok, so we check
+	for status code 200, the ok signal that servers send the client after a successful GET.
+	</p>
 </body>
 </html>
