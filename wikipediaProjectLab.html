@@ -147,12 +147,56 @@
 	We know that there are 10 sections we care about total, so let's take three events from each.
 	If a section, has less than three, let's just take the whole section. This really will only apply on some days where we have a particularly small pre1600 section
 	With that structure in mind now, we can code.
-	<p>
+	</p>
 	<br>
 	<img src="./wikipediaImages/random.PNG">
+	<br><br>
 	<p>
 	When we put all of these peices together, we are nearly complete. Everything related to pulling the facts from a specific subsection of a page is done, and since
 	we made sure to follow the line of questioning stemming from 4 and 2, it is easily expandible to include the other sections. After attempting on your own to 
-	follow the template so far to add the other sections, view <a href="https://kymccormick.github.io/resumeSite/source_code_pt_1.py"
+	follow the template so far to add the other sections, click <a href="https://kymccormick.github.io/resumeSite/source_code_pt_1.py">here</a> to see my source
+	code with all sections filled out.
+	</p>
+	<hr>
+	<p> Great! Now we have a very fun and interesting problem left. We need to incorporate some way to take  these lists of events and embed them into an html page. </p>
+	<p> 2.b How can we structure the html page this information will end up on to make our code as simple as possible?</p>
+	<p style="margin-left:20px">
+	We have a list of events, three from each section, and nine sections. This looks like a series of lists! html has a tag for this. The ul tag creates an unordered
+	list and the li tag creates list elements. By having an li tag for each fact we insert, so 27 total, we can look to pull these all and match one to one.
+	click <a href="https://kymccormick.github.io/resumeSite/html_source.txt">here</a> to see the html page source code.
+	</p>	
+	<p> Pulling out those elements is not hard. Using the find_all() method from BeautifulSoup, we pull all of these and can edit their string content. After doing this,
+	we just need to write to the file!
+	</p>
+	<br>
+	<img src="./wikipediaImages/main.PNG">
+	<br><br>
+	With that, we now have a fully functional webscraper that then updates our page. To see the page, you may click the today's info link in the navigation bar. To see
+	the full source code, you may click <a href="https://github.com/KyMcCormick/wikipediaScraper">here</a>.
+	<hr>
+	<p> This leaves one part. We need to automate this so it runs every morning. <br>
+	2.c How can I set this python program to run every morning on startup?
+	</p>
+	<p style="margin-left:20px">
+	This is surprisingly simple. Most people are aware they can set programs like spotify or discord or chrome to open on startup. This is done through 
+	the task scheduler. The task scheduler, however, only runs executables. Because of this, we can't run the python file directly, we need to specify to
+	use the python.exe in our python path with the python file as input. To do this, open task scheduler, click create task, name it, and then go to triggers.
+	In triggers press new trigger, on startup, and then ok. In actions, press new action, put in the path to the python.exe. This can be found by doing "where python"
+	in the command line. In the add arguments section, put the path to the scraping program. I additionally added an action that runs a bash script to add, commit,
+	and push the file to git. This is completely optional.
+	<hr>
+	Now, let's answer question 3 in detail.<br>
+	Besides basic python and html, we needed to use:
+	<ul>
+		<li>BeautifulSoup to parse and insert</li>
+		<li>Requests to get our informat</li>
+		<li>https to send the requests</li>
+		<li>windows task scheduler to automate the running every morning</li>
+		<li>bash to create the script that runs every morning</li>
+	</ul>
+	We also needed to use some structure in our code, most prevelent of which was the list. We iterated over it, used multiple
+	ways of creating one from information, used list comprehension and regular expressions, and final wrote to an html document
+	based on changes created in a list.
+	</p>
 </body>
 </html>
