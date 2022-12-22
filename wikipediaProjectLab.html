@@ -75,5 +75,37 @@
 	that will retrieve all the data aka html and css nonsense. Notably, we also want ensure the webpage we get is ok, so we check
 	for status code 200, the ok signal that servers send the client after a successful GET.
 	</p>
+	<p> Now that we know it is possible to get this information and check that it is correct, then we can move to our design.
+	It is imperitive to think about the design and structure of a program before starting. We think both about the problem itself
+	and the structure behind the problem and we think about the structure of our solutions. </p>
+
+	<p> 4.a What structurly do I expect to need in the code? </p>
+	<p style="margin-left:20px">
+	This is a large question, a shockingly large and important question. We know that a couple steps are needed. Broadly,
+	get date, get data, parse data, and get events. 
+	<ul>
+		<li>getDate(): fairly simple, nearly all computers have clocks (or well, all if you count the clock unit). Getting
+		the date is relatively trivial, we just then need to concatenate the right form of it to "https://en.wikipedia.org/wiki
+		<li>getSiteData(): this is the big boy, main driver. Once we get the date, we can make the requester, send an GET request
+		and then, if we have a 200 response, begin to process
+		<li>processData(): We need to parse the data we receive as html that way it is in a useable format instead of a long string
+		and then pull all text out of it, and work the document's sections. The wikipedia pages we are scraping are divided
+		into four sections; events, births, deaths, and holidays. Each of these parts are broken into three subparts,
+		pre1600, early modern period, and modern period. This logically means we should have another function.
+		<li>processSection(): For each section, we can separate the subsections as lists of facts contained within. 
+		<li>getRandomEvents(): a simple function get random events from the subsections.
+	</ul>
+	</p>
+	<p>This gives us a rough idea of the intitial tasks we will need. With this, we now can begin coding. Here is our initial program.
+	Note  the imports at the top. Of these, requests is needed for the http requests and bs4 from BeautifulSoup is needed for parsing
+	the html.
+	<img src="./wikipediaImages/initialCodeStructure.PNG"> 
+	<br>
+	let's start with getSiteData(): first since this function is the entry point of our program. Firstly, we know we need to get
+	the current date, so call the getDate() function, and execute a request, afterwhich we check the response code. After this, we should
+	be good to process. The function getDate is fairly simple to implement as well. 
+	<img src="./wikipediaImages/getSiteData.PNG">
+	Next in the pipeline is processData(requestor). Remember that knowing the structure of the website being scraped is imperative.
+	With this in mind, we have a really important question.
 </body>
 </html>
