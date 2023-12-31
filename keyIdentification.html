@@ -24,13 +24,57 @@
 	   song by sites like https://tunebat.com/ and https://tabs.ultimate-guitar.com/ I kept seeing that the keys given 
 	   do not line up with what I hear or that the keys given are not consistent across versions. With that in mind </p>
 	<hr>   
-	<p> I started looking at key identification using Machine Learning and wanted to see if there was anyone who've <br>
-	    done similar. Sadly, there's not much out there on anything lower than a very high academic level. Spotify <br>
+	<p> I started looking at key identification using Machine Learning and wanted to see if there was anyone who've
+	    done similar. Sadly, there's not much out there on anything lower than a very high academic level. Spotify 
 	    likes to keep it's secrets ... here are the papers</p>
 	<ul>
 		<li>1. <a href="http://davidtemperley.com/wp-content/uploads/2015/11/temperley-mp99.pdf">Krumhansl-Schmuckler Algo</a></li>
 		<li>2. <a href="https://cs229.stanford.edu/proj2016/report/Mahieu-DetectingMusicalKeyWithSupervisedLearning-report.pdf">Detecting Musical Key with Supervised Learning</a></li>
 		<li>3. <a href="https://link.springer.com/article/10.1007/s11042-022-12432-y">Development of an intelligent model for musical key estimation using machine learning techniques</a></li>
 	</ul>
+
+	<p>Great, but what the hell do these papers mean? What use are they to me, or to anyone? what can we pull
+	   out from them, that vein of gold burried deep, that kernel around which we can build and build and buld like
+	   the speck of dust at a center of a raindrop? To the best of my ability, it can but sumarised as follows:</p>
+	<ul>
+		<li>1. Music, like all sounds, is quantifiable as a series of waves. We use hertz for this measure </li>
+		<li>2. Sadly, due to overtones and interference, hitting one note does not trigger just one note and noise is a big issue </li>
+		<li>3. We can use short time fourier transforms and a whole lot of frequency filtering to clean up the noise as best as possible and match the note to its expected frequency AND velocity</li>
+		<li>4. We then can cut this into sections (say 30s-1m) and then average the velocity and occurance of each note over said time to get an average chroma-vector</li>
+		<li>5. The chroma-vector forms the basis for all of the machine learning algorithms. It (and the key) are the inputs </li>
+	</ul>
+	<hr>
+	<p>Ok cool. So now it's a day later. I spent too much time and (finally) have a working database that promises to be varied enough
+	   and wont 1. cost me monies or 2. require me to like do individual dowloads or map the keys myself. It's important to have a 
+	   verified basis of truth. Bad part. It's all in .abc files. .abc is a very old file type from the 1990s and 2000s used to write
+	   music in ASCII. It was mostly used for traditional folk songs. Luckily, (after WAY too many broken links) I found a converter
+	   in c to do this for me, but hey. I know c, I know python. I'll be back after I make a converter.
+	</p>
+	<br>
+	<br>
+	<p>I'm back. It's been about two hours. Here's the script! It's a remarkably simple thing, most of the time was spent actually
+	   doing the test conversions.
+	</p>
+	<pre><code class="python">
+	  import sys, re
+	  from subprocess import call
+
+	  def main():
+	    abc_file = sys.argv[1]
+	    abc_file = open(abc_file, "r").read().split("\n\n")
+
+	    for i in range(len(abc_file)):
+	      if(len(abc_file[i]) > 2):
+	        f = open("test.abc", "w")
+		f.write(abc_file[i])
+		f.close()
+		song_name = re.findall("T:(.*)", abc_file[i])[0].replace(" ", "_").replace("'","")
+		song_key = re.findall("\nK:(.*)", abc_file[i])[0]
+		filename = "midi_files/" + song_name + '+Key_' + song_key
+
+		call(["./abc2midi.exe", "test.abc", "-o", filename])
+	  
+	  main()
+	</code></pre>
 </body>
 </html>
