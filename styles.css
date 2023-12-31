@@ -85,7 +85,7 @@ table.center {
 	margin-left: auto;
 	margin-right: auto;
 }
-pre, code {
+code {
 	background: #929E86;
         list-style-position: inside;
         padding: 10px;
