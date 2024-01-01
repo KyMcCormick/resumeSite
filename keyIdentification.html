@@ -95,9 +95,53 @@
 	   but I have all the data needed. I processed this data as follows: I first labeled the file with a separator and key information
 	   then I created a function called processMp3Data(dir) which takes the mp3 file directory and creates a matrix representation
 	   with each row representing a thirty second snipit of an audio file with the last feature as the labeled key, and the rest as the
-	   average chroma-vector over that period. The code for this function is below.
-	<p>
+	   average chroma-vector over that period. The code for this function and explanation is below.
+	</p>
+	<ul>
+		<li>1. Create a dummy matrix to start then begin a loop for every file in the mp3 directory</li>
+		<li>2. Find the key from the song title using regex, filter out noise and percussion, and create the chromagraph</li>
+		<li>3. For each 30s song chunk, grab that slice from the chromagraph matrix, then calculate the average chromavector</li>
+		<li>4. Add the key to this chromavector to create the feature vector and stack it onto the dummy matrix</li>
+	</ul>
 	<pre><code class="language-python">
+	feature_matrix = np.zeros((0,13))
+
+    	  for file in os.listdir(dir):
+          f = os.path.join(dir, file)
+
+          if os.path.isfile(f):
+            print(f)
+            # get length of song in seconds, then number of 30 second snippets to make
+            length = librosa.get_duration(path=f)
+            itters = int(length // 30) 
+
+            # get the key from title
+            key = re.findall('\+Key\_(.*)\.',f)[0]
+
+            # load the song, filter out local noise and percussion
+            y, sr = librosa.load(f)
+            y_harm = librosa.effects.harmonic(y=y, margin=8)
+            chroma_harm = librosa.feature.chroma_stft(y=y_harm, sr=sr)
+            chroma_filter = np.minimum(chroma_harm,
+                           librosa.decompose.nn_filter(chroma_harm,
+                                                       aggregate=np.median,
+                                                       metric='cosine'))
+
+            # for each 30 second chunk of the song, create an entry
+            for i in range(itters):
+
+                if (i+1) * 30 &lt= length:
+                    x = (i+1) * 30
+                    idx = tuple([slice(None), slice(*list(librosa.time_to_frames([i*30, (i+1)*30])))])
+                else:
+                    idx = tuple([slice(None), slice(*list(librosa.time_to_frames([i*30, length])))])
+
+                feature_vector = np.mean(chroma_filter[idx],axis=1)
+                feature_vector = np.append(feature_vector, key)
+                
+                feature_matrix = np.vstack((feature_matrix, feature_vector))
+
+    	return feature_matrix
 	</code></pre>
 	
 </body>
