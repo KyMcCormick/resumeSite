@@ -3,6 +3,8 @@
 <head>
         <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
         <link rel="stylesheet" type="text/css" href="styles.css" />
+	<link rel="stylesheet" href="prism.css">
+	<script src="prism.js"></script>
 
         <h1>Ky McCormick - Personal Site</h1>
 
@@ -55,7 +57,7 @@
 	<p>I'm back. It's been about two hours. Here's the script! It's a remarkably simple thing, most of the time was spent actually
 	   doing the test conversions.
 	</p>
-	<pre><code class="python">
+	<pre><code class="language-python">
 	  import sys, re
 	  from subprocess import call
 
@@ -82,11 +84,21 @@
 	<p>It's the next day now. Some bad news everyone! The database was seemingly not as varried as implied. I was looking through the
 	   files and did some basic just like checkwork and the amount of each key seemed a little off. Some keys seems to be very heavily
 	   represented, so I did more investigation using grep and wc and found out bad news! Nearly half the possible keys are not
-	   in the dataset! How dare the internet lie to me! This is annoying ugghghh. Now what.\n\n
-
+	   in the dataset! How dare the internet lie to me! This is annoying ugghghh. Now what.
+	<br>
 	   So. New plan. Let's look at the top 15 songs in each non-theoretical key (for non music nerds, that means keys that are 
 	   realistically played).Get mp3s for each, then slice them into 30 second blocks and remove percussive features, normalise, 
 	   and filter, then use. Now for how I am gonna get these as mp3s (or oog, or flac, or wav)...
 	</p>
+	<hr>
+	<p>Finally, three days later, I've got enough data. It was VERY tedious and annoying to try to find mp3s. Let's not ask questions
+	   but I have all the data needed. I processed this data as follows: I first labeled the file with a separator and key information
+	   then I created a function called processMp3Data(dir) which takes the mp3 file directory and creates a matrix representation
+	   with each row representing a thirty second snipit of an audio file with the last feature as the labeled key, and the rest as the
+	   average chroma-vector over that period. The code for this function is below.
+	<p>
+	<pre><code class="language-python">
+	</code></pre>
+	
 </body>
 </html>
