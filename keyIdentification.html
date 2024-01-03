@@ -150,18 +150,18 @@
 	<p>Now  that we have the data in a digestable format, there's one small tweak and one large tweak left before we
 	   can use it for machine learning. An old phrase a prof told me is Machine Learning is 20% statistics, 20% linear alg,
 	   and 60% just getting the data to where you need it. Anyways... 
-	<br>
+	   <br><br>
 	   The simple tweak is that instead of A, Ab, Abm, etc for keys
 	   they need to be given as numbers, just for ease of processing en mass with numpy. I just threw the results of the above
 	   function into a pandas dataframe and exported that as a csv, then used mass edits in my csv editor of choice.
-	<br>
+	<br><br>
 	   The more complicated one is that well 24 dimmensional data is not very easy to work with. Some machine learning algos behave
 	   badly with high dimmensions, some just get much more computationally intense, and while I am doing this on a fairly beefy
 	   PC and not a TON of data, 1392 datapoints with 24 features... it'll be for the best. Moreover, I am not sure yet on which
 	   dimmension we will perform best, if any from reduction. If I was to use Krumhansl's algorithm, then of course reduction would
 	   not be beneficial, but we are exploring the use of machine learning for key classification, so we need to apply machine learning
 	   logic.
-	<br>
+	<br><br>
 	   To reduce the number of features per entry while preservince class separation, we must use Linear Discriminant Analysis.
 	   Details of LDA can be found <a href="./lda.html">here</a>
 	</p>
