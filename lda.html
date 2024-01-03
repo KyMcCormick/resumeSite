@@ -29,17 +29,19 @@
 	</p>
 	<h2>What are LDAs Assumptions and Drawbacks?</h2>
 	<p>LDA is not a silver bullet. LDA makes some crucial assumptions about the dataset:
+	</p>
 	<ul>
 		<li>1. Sample Independence</li>
 		<li>2. Gaussian Distribution of data</li>
 		<li>3. Each class has identical covariance matrices</li>
 		<li>4. Linear separation is possible</li>
 	</ul>
+	<p>
 	   most of these assumptions are fairly reasonable. The two that get us in the most trouble are 2 and 3. Not all data will be gaussian in nature.
 	   And for each class to have identical covariance matrices is ideal, and is generally true, but be careful about finding if it does not.
 	</p>
 	<h2>The Mathematics of LDA</h2>
-	<p>LDA has a couple of steps. It is important to understand each step to understand the algorithm.
+	<p>LDA has a couple of steps. It is important to understand each step to understand the algorithm.</p>
 	<ul>
 		<li>1. Find the mean over all features</li>
 		<li>2. Find the scatter matrices for in-between and within-class, SB and SW</li>
@@ -47,6 +49,7 @@
 		<li>4. Choose the k eigenvectors mapping to the k largest eigenvalues</li>
 		<li>5. Use these eigenvectors to transform the samples to a new, dimmensionally reduced, subspace</li>
 	</ul>
+	<p>
 	   Great! Now that we know the steps, let's break down how to perform them:
 	   <br><br>
 	   Step 1: Find the mean over all features for each class
