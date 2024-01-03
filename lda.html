@@ -54,22 +54,23 @@
 	   <br><br>
 	   Step 1: Find the mean over all features for each class
 	   <br>
-	   	- For each class, for each feature of each entry in that class, find it's mean over the entries in that class.
-		- Results in C 1xF matrix where F = # of Features, where C = # classes, each called m<sub>i</sub>, i being the class number.
+	   &emsp; - For each class, for each feature of each entry in that class, find it's mean over the entries in that class. <br>
+	   &emsp; - Results in C 1xF matrix where F = # of Features, where C = # classes, each called m<sub>i</sub>, <br>
+	   &emsp;&ensp; i being the class number.
 	   <br>
 	   Step 2: Find the Scatter Matrices
 	   <br>
-	   	&emsp;- SW = the sum of Si over classes
-		&emsp;- Si = the sum of (x-m<sub>i</sub>)(x-m<sub>i</sub>)<sup>T</sup>
-		&emsp;- SB = the sum of N(m<sub>i</sub>-m)(m<sub>i</sub>-m)<sup>T</sup> where N = sample size of class, m = total mean of feature.
+	   &emsp;- SW = the sum of Si over classes<br>
+	   &emsp;- Si = the sum of (x-m<sub>i</sub>)(x-m<sub>i</sub>)<sup>T</sup><br>
+	   &emsp;- SB = the sum of N(m<sub>i</sub>-m)(m<sub>i</sub>-m)<sup>T</sup> where N = sample size of class, m = total mean of feature.<br>
 	   <br>
 	   Step 3: Find the eigenvectors and values for the scatter matrices
 	   <br>
-	   	&emsp;- Solve the generalized eigenvalue problem for SW inverse * SB
+	   &emsp;- Solve the generalized eigenvalue problem for SW inverse * SB<br>
 	   <br>
 	   Step 4 and 5:
 	   <br>
-	   	&emsp;- Take the k largest and multiply Y = X x W where W = the d x k-dimmensional eigenvect matrix
+	   &emsp;- Take the k largest and multiply Y = X x W where W = the d x k-dimmensional eigenvect matrix<br>
 	</p>
 	<br>
 	<hr>
