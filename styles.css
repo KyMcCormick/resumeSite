@@ -88,3 +88,6 @@ table.center {
 pre {
 	background: #929E86
 }
+.tab {
+        tab-size: 4; /* for e.g: value = 2*/
+    }
