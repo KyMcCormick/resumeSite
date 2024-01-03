@@ -59,17 +59,66 @@
 	   <br>
 	   Step 2: Find the Scatter Matrices
 	   <br>
-	   	- SW = the sum of Si over classes
-		- Si = the sum of (x-m<sub>i</sub>)(x-m<sub>i</sub>)<sup>T</sup>
-		- SB = the sum of N(m<sub>i</sub>-m)(m<sub>i</sub>-m)<sup>T</sup> where N = sample size of class, m = total mean of feature.
+	   	&emsp;- SW = the sum of Si over classes
+		&emsp;- Si = the sum of (x-m<sub>i</sub>)(x-m<sub>i</sub>)<sup>T</sup>
+		&emsp;- SB = the sum of N(m<sub>i</sub>-m)(m<sub>i</sub>-m)<sup>T</sup> where N = sample size of class, m = total mean of feature.
 	   <br>
 	   Step 3: Find the eigenvectors and values for the scatter matrices
 	   <br>
-	   	- Solve the generalized eigenvalue problem for SW inverse * SB
+	   	&emsp;- Solve the generalized eigenvalue problem for SW inverse * SB
 	   <br>
 	   Step 4 and 5:
 	   <br>
-	   	- Take the k largest and multiply Y = X x W where W = the d x k-dimmensional eigenvect matrix
+	   	&emsp;- Take the k largest and multiply Y = X x W where W = the d x k-dimmensional eigenvect matrix
 	</p>
+	<br>
+	<hr>
+	<h2>LDA Applied in Python</h2>
+	<pre><code>
+
+import numpy as np
+
+class LDA:
+
+    def __init__(self, n_componenets):
+	# number of dimmensions to keep
+	# disrciminants = store for eigenvectors 
+
+	self.n_componenets = n_componenets
+	self.discriminants = None
+
+    def fit(self, X, y):
+	num_features = X.shape[1]
+	class_labels = np.unique(y)
+
+	# calc S_W and S_B
+
+	mean_over_all = np.mean(X,axis=0)
+
+	SW = np.zeros((num_features,num_features))
+	SB = np.zeros((num_features,num_features))
+
+	for c in class_labels:
+		X_c = X[y==c]
+		mean_c = np.mean(X_c,axis=0)
+		SW += (X_c - mean_c).T.dot(X_c - mean_c)
+
+		n_C = X_c.shape[0]
+		mean_diff = (mean_c - mean_over_all).reshape(num_features,1)
+		SB += n_C * (mean_diff).dot(mean_diff.T)
+
+	A = np.linalg.inv(SW).dot(SB)
+	eigenvalues, eigenvectors = np.linalg.eig(A)
+	eigenvectors = eigenvectors.T
+	idxs = np.argsort(abs(eigenvalues))[::-1]
+	eigenvalues = eigenvalues[idxs]
+	eigenvectors = eigenvectors[idxs]
+
+	self.discriminants = eigenvectors[0:self.n_componenets]
+
+    def transform(self, X):
+	# project down dimmensions
+
+	return np.dot(X, self.discriminants.T)
 </body>
 </html>
