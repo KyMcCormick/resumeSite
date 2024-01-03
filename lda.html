@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+        <link rel="stylesheet" type="text/css" href="styles.css" />
+        <link rel="stylesheet" href="prism.css">
+        <script src="prism.js"></script>
+
+        <h1>Ky McCormick - Personal Site</h1>
+
+        <nav>
+                <a href="./index.html">[resume]</a>
+                <a href="./projects.html">[projects]</a>
+                <a href="./aboutme.html">[about me]</a>
+                <a href="./today.html">[todays info]</a>
+        </nav>
+        <hr>
+</head>
+<body>
+	<h1>Linear Discriminant Analysis</h1>
+	<p>Linear Discriminant Analysis, at its heart, is a mathematical technique. Machine learning really took it soley due to its usefulness, 
+	   but machine learning is truly 20% Linear Alg, 20% Stats, and 60% just getting the data where you want it. This, as the name implies,
+	   comes from the linear algebra and statistics domains.
+	</p>
+	<h2>What is LDA?</h2>
+	<p>Linear Discriminant Analysis (LDA) is a technique to reduce the dimmensionality of a dataset while preserving class separation. For problems
+	   like classification LDA is essential to avoid the Curse of Dimmensionality, to increase compatibility with certain algorithms, and to visually
+	   represent data. The general idea of LDA is to find a new axis that best separates two (or more) classes.
+	</p>
+	<h2>What are LDAs Assumptions and Drawbacks?</h2>
+	<p>LDA is not a silver bullet. LDA makes some crucial assumptions about the dataset:
+	<ul>
+		<li>1. Sample Independence</li>
+		<li>2. Gaussian Distribution of data</li>
+		<li>3. Each class has identical covariance matrices</li>
+		<li>4. Linear separation is possible</li>
+	</ul>
+	   most of these assumptions are fairly reasonable. The two that get us in the most trouble are 2 and 3. Not all data will be gaussian in nature.
+	   And for each class to have identical covariance matrices is ideal, and is generally true, but be careful about finding if it does not.
+	</p>
+	<h2>The Mathematics of LDA</h2>
+	<p>LDA has a couple of steps. It is important to understand each step to understand the algorithm.
+	<ul>
+		<li>1. Find the mean over all features</li>
+		<li>2. Find the scatter matrices for in-between and within-class, SB and SW</li>
+		<li>3. Find the eigenvectors and values for the scatter matrices</li>
+		<li>4. Choose the k eigenvectors mapping to the k largest eigenvalues</li>
+		<li>5. Use these eigenvectors to transform the samples to a new, dimmensionally reduced, subspace</li>
+	</ul>
+	   Great! Now that we know the steps, let's break down how to perform them:
+	   <br><br>
+	   Step 1: Find the mean over all features for each class
+	   <br>
+	   <pre>
+	   	- For each class, for each feature of each entry in that class, find it's mean over the entries in that class.
+		- Results in C 1xF matrix where F = # of Features, where C = # classes, each called m<sub>i</sub>, i being the class number.
+	   </pre>
+	   <br>
+	   Step 2: Find the Scatter Matrices
+	   <br>
+	   <pre>
+	   	- SW = the sum of Si over classes
+		- Si = the sum of (x-m<sub>i</sub>)(x-m<sub>i</sub>)<sup>T</sup>
+		- SB = the sum of N(m<sub>i</sub>-m)(m<sub>i</sub>-m)<sup>T</sup> where N = sample size of class, m = total mean of feature.
+	   </pre>
+	   <br>
+	   Step 3: Find the eigenvectors and values for the scatter matrices
+	   <br>
+	   <pre>
+	   	- Solve the generalized eigenvalue problem for SW inverse * SB
+	   </pre>
+	   <br>
+	   Step 4 and 5:
+	   <br>
+	   <pre>
+	   	- Take the k largest and multiply Y = X x W where W = the d x k-dimmensional eigenvect matrix
+	   </pre>
+	</p>
+</body>
+</html>
