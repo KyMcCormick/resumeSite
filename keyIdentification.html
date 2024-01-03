@@ -26,6 +26,7 @@
 	   song by sites like https://tunebat.com/ and https://tabs.ultimate-guitar.com/ I kept seeing that the keys given 
 	   do not line up with what I hear or that the keys given are not consistent across versions. With that in mind </p>
 	<hr>   
+	<h2>Part I: Data Collection and Preprocessing</h2>
 	<p> I started looking at key identification using Machine Learning and wanted to see if there was anyone who've
 	    done similar. Sadly, there's not much out there on anything lower than a very high academic level. Spotify 
 	    likes to keep it's secrets ... here are the papers</p>
@@ -164,6 +165,28 @@
 	<br><br>
 	   To reduce the number of features per entry while preservince class separation, we must use Linear Discriminant Analysis.
 	   Details of LDA can be found <a href="./lda">here</a>
+	</p>
+
+	<hr>
+	<h2>Part II: Sanity Checks</h2>
+	<p>Now that we have a modestly sized dataset, a way of processing that dataset into a digestable format, and implemented Linear
+	   Discriminant Analysis, let's do some sanity checking. 
+	   <br><br>
+	   First things first, splitting the data into testing and training. When creating a model agent, it is important that one does
+	   not train directly on the test set, and that the test set is robust. There are many techniques and splits to increase the efficacy
+	   of training, extend the use of the data, and increase generalisation, but due to time constraints I am simply doing 3/4 training 1/4 testing.
+	   <br><br>
+	   The sanity check comes from needing to do some splits in the data. Firstly, the data needs to be shuffled about. To ensure the same shuffling
+	   occurs each time, we can use np.random.seed(). Then, we must not lose the labels while shuffling, but specifically lose them to do LDA. Ordering
+	   is important. Finally, just for graphability, multiplying by a scalar. To ensure everything in this processing step moves properly, I performed
+	   a variety of prints during developement and cross-referenced with the csv file.
+	   <br><br>
+	   Next, I want to ensure that before even attempting any machine learning model implementations there is a good class separation within the data.
+	   While I expect separation to decrease as more classes are introduced (looking at you all 24), the distribution of notes in each key and Krumhansl's
+	   observations both point to the fact that clear separation should exist. Noteably, splitting the songs into 30 second chunks, modulation within songs,
+	   and the simplification to major and minor modes instead of the whole series of modes means that, in addition to outliers, it is a good idea to check
+	   if the expected separation is maintained. To do so, I reduced the dataset to 3D and graphed classes against eachother. In the images below are
+	   the key of A major, mapped as key 0, as compared to its parallel minor, chromatic neighbor, and dominant key. Separation was maintained in all cases.
 	</p>
 
 </body>
