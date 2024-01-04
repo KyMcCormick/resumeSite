@@ -218,6 +218,87 @@
 	starts breaking down when dimmensions go beyond 4 or 5. And every point in the train set, for every point in the test set? That's a lot of computational load!
 	These are the downsides of KNN.
 	</p>
-	
+	<br>
+	<p>
+	The code for KNN is pretty simple then, two for loops to go through the data points, another to calculate distance, and finally checking the neighbors.
+	There are a couple of tricks, however.
+	</p>
+	<ul>
+		<li>1. sort by lambda x: Since each entry is itself an array, dist_list ends up as a 2d array. &emsp; To quickly sort this, we can use sort's key param and lambda x as x[0] to sort along &emsp; the dist_list[[distance,entry]] distance axis</li>
+		<li>2. distance function: The distance function chosen in KNN can make a huge&emsp; &emsp; &emsp; &emsp; difference. For now I am trying euclidian distance, the distance we al did in &emsp; &emsp; &emsp; &emsp; middle school until I know everything works, then I will experiment different ones</li>
+		<li>3. confusion matrix sets: Rather than manually looping over the opinions, one can &emsp; &emsp; use a little trick with sets and python. int(max(set(opinions, key=opinions.count) &emsp; &emsp; means that, by converting to a set based on the count of each opinion, we can easily &emsp; just grab the consensus. For ties, the lowest number key comes first, so A, then Am</li>
+	</ul>
+	<p>
+	The code for KNN all put together is down below. The confusion matrix code is the only part that is somewhat complicated. Oh. Yes. Confusion Matrices are a
+	thing. They're simple a larget feature x feature table that counts the number correct on the diagonal and the number wrong, but confused for what, along the
+	vertical. It is a great tool for seeing if a class is being confused, or misclassified as another.
+	</p>
+	<pre><code class="language-python">
+def knn(train_set, train_set_labels, validation_set, validation_set_labels, k):
+
+    num_features = train_set.shape[1]
+    
+    train_set = np.append(train_set, np.reshape(train_set_labels, (-1,1)), axis=1)
+    validation_set = np.append(validation_set, np.reshape(validation_set_labels, (-1,1)), axis=1)
+    t = 0
+    c = 0
+    
+    confusion_matrix = np.zeros((24,24))
+
+    # calc distance between val point and each. classify based on majority opinion of k closest
+    for v_entry in validation_set:
+        dist_list = []
+        opinions = []
+        for t_entry in train_set:
+       
+        
+            # euclidian dist: sqrt(sum( (v_i - t_i)^2 ))
+            dist = 0
+            for i in range(num_features):
+                v_i = v_entry[i]
+                t_i = t_entry[i]
+                dist = dist + (v_i - t_i) ** 2
+            dist = math.sqrt(dist)
+
+            dist_list.append([dist,t_entry])
+
+        dist_list.sort(key=lambda x: x[0])
+
+        for i in range(k):
+            opinions.append(dist_list[i][1][num_features])
+        
+        confusion_matrix[int(max(set(opinions), key=opinions.count)), int(v_entry[num_features])] = confusion_matrix[int(max(set(opinions), key=opinions.count)), int(v_entry[num_features])] + 1
+
+        if max(set(opinions), key=opinions.count) == v_entry[num_features]:
+            c = c + 1
+        t = t + 1
+
+    print("***** ACCURACY *****")
+    print(c, "/", t)
+    
+    for l in confusion_matrix:
+        for item in l:
+            print(item,end=',')
+        print('\n')
+	</code></pre>
+	<h2>Part IV: Hyperparameters and Experimentation</h2>
+	<p>Just because we can use KNN now does not mean that we are done. KNN has a few hyperparameters, as does preprocessing, as does LDA</p>
+	<ul>
+		<li>1. K : How many neighbors to look at?</li>
+		<li>2. LDA : How many dimmensions? Is reduction good? </li>
+		<li>3. Train/Test Split : 2/3, 3/4, 4/5 are all normal splits, which performs best?</li>
+		<li>4. Distance : What distance function performs best? </li>
+		<li>5. 30 seconds : Was 30 second chunks a good choice? Would longer be better? </li>
+	</ul>
+	<p>While I'd like to explore all of these questions, lets start with the first three. After a lot of trial and error, I found that the lower
+	   I went with LDA, the worse I got, but running one pass with LDA at full 24D was still beneficial by about a three percent difference in accuracy.
+	   All I did to test this was run a for loop from 1 to 24 inclusive, one for each version of LDA, and compared their relative accuracies. <br><br>
+	   K, i did similar and found, as expected, that the sensitivity to outliers and breakdown of separation when comparing the whole 24 classes to eachother
+	   influenced KNN greatly. A k=5 provided the best results. <br><br>
+	   Training splits did not have much affect either way, so I stuck with a 3/4 1/4 split.<br><br>
+
+	   The final accuracy with these hyperparameters was around 67%, which I am quite pleased with. Below Is an image showing the confusion matrix with 
+	   class labels.
+	</p>
 </body>
 </html>
