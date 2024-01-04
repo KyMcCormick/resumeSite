@@ -43,7 +43,8 @@ h2 {
 h3 {
 	color: white;
 	font-size: 20;
-	text-align: left;
+	text-align: center;
+	text-decoration: underline;
 
 }
 

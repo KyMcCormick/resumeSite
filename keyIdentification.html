@@ -190,5 +190,34 @@
 	</p>
 	<h3>A vs Am</h3>
 	<img src="./A_vs_Imgs/A_vs_Am.png" alt="A vs Am" style="width:640px;height:480px;">
+	<h3>A vs A#</h3>
+	<img src="./A_vs_Imgs/A_vs_ASharp.png" alt="A vs A#" style="width:640px;height:480px;">
+	<h3>A vs E</h3>
+	<img src="./A_vs_Imgs/A_vs_E.png" alt="A vs E" style="width:640px;height:480px;">
+	<p>Great news, there's good separation between classes. Remember, LDA maintains and maximizes separation, it does not create separation where there is none
+	   to begin with. As such, seeing the separation when graphed like this is a good sign. Now, when graphed all together, the 24 keys get much more crowded
+	   and separation starts to break down as expected, but still decent separation is maintained. One can see that here:
+	</p>
+	<h3>A vs All</h3>
+	<img src="./A_vs_Imgs/A_vs_All.png" alt="A vs E" style="width:640px;height:480px;">
+	<p>Future Ky chiming in! Later I'll learn that this shows two very important things. First off, KNN is probably not the most suited algorithm for 
+	   this dataset, or at least when reduced with LDA and especially due to KNN's sensitivity to outliers, and that an algorithm that divides based on 
+	   hyperplanes, such as SVM (just like the papers said) is possibly a great fit. At this point, I did not realise that and spent MANY hours and multiple
+	   days trying to figure out what was so wrong, it also did not help there was a bug in my first KNN attempt causing a feature to be ignored...
+	</p>
+	<hr>
+	<h2>Part III: KNN</h2>
+	<p>
+	When I read the papers, I was surprised that none attempted KNN, as it seemed to be a decent analog to the KK-profiles. The idea behind this being twofold:
+	If a song was in a given key, it should not be that far apart from other songs in that key when quantified as chroma-vectors, which follows from that all
+	songs in a key should be closer in distance to it's KK-profile than the KK-profile of another key. This logic also applies to why the papers attempted SVM
+	based classification. However, due to limited time, as I am doing this over Drexel's painfully short, and my surprisingly busy, winter break, I am starting
+	with KNN. KNN stands for K Nearest Neighbors which provides a great explanation for the core of the algorithm. KNN takes all points in the training set,
+	and for each point in the validation set, looks at the k nearest points in the test set and values a consensus from among them as to how to lable the new 
+	point. Remarkably, geniously simple. However, what does distance really mean? There are dozens of distance functions, and euclidian distance really 
+	starts breaking down when dimmensions go beyond 4 or 5. And every point in the train set, for every point in the test set? That's a lot of computational load!
+	These are the downsides of KNN.
+	</p>
+	
 </body>
 </html>
