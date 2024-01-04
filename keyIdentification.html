@@ -19,14 +19,14 @@
 <body>
 	<title>Ky McCormick Personal Site</title>
 	<hr>
-	<h2>Key Identification Using Machine Learning</h2>
+	<h4>Key Identification Using Machine Learning</h4>
 	<p>Since I started at Drexel, I have been interested in the overlap between music and computer science. At first 
 	   I was interested in using AI generation, but I have since soured on that, then I was looking at the mathematical 
 	   sides behind music and then it hit me. Lately, when playing bass and looking at the keys given for a specific 
 	   song by sites like https://tunebat.com/ and https://tabs.ultimate-guitar.com/ I kept seeing that the keys given 
 	   do not line up with what I hear or that the keys given are not consistent across versions. With that in mind </p>
 	<hr>   
-	<h2>Part I: Data Collection and Preprocessing</h2>
+	<h4>Part I: Data Collection and Preprocessing</h4>
 	<p> I started looking at key identification using Machine Learning and wanted to see if there was anyone who've
 	    done similar. Sadly, there's not much out there on anything lower than a very high academic level. Spotify 
 	    likes to keep it's secrets ... here are the papers</p>
@@ -168,7 +168,7 @@
 	</p>
 
 	<hr>
-	<h2>Part II: Sanity Checks</h2>
+	<h4>Part II: Sanity Checks</h4>
 	<p>Now that we have a modestly sized dataset, a way of processing that dataset into a digestable format, and implemented Linear
 	   Discriminant Analysis, let's do some sanity checking. 
 	   <br><br>
@@ -206,7 +206,7 @@
 	   days trying to figure out what was so wrong, it also did not help there was a bug in my first KNN attempt causing a feature to be ignored...
 	</p>
 	<hr>
-	<h2>Part III: KNN</h2>
+	<h4>Part III: KNN</h4>
 	<p>
 	When I read the papers, I was surprised that none attempted KNN, as it seemed to be a decent analog to the KK-profiles. The idea behind this being twofold:
 	If a song was in a given key, it should not be that far apart from other songs in that key when quantified as chroma-vectors, which follows from that all
@@ -281,7 +281,7 @@ def knn(train_set, train_set_labels, validation_set, validation_set_labels, k):
             print(item,end=',')
         print('\n')
 	</code></pre>
-	<h2>Part IV: Hyperparameters and Experimentation</h2>
+	<h4>Part IV: Hyperparameters, Experimentation, and Reflection</h4>
 	<p>Just because we can use KNN now does not mean that we are done. KNN has a few hyperparameters, as does preprocessing, as does LDA</p>
 	<ul>
 		<li>1. K : How many neighbors to look at?</li>
@@ -293,12 +293,14 @@ def knn(train_set, train_set_labels, validation_set, validation_set_labels, k):
 	<p>While I'd like to explore all of these questions, lets start with the first three. After a lot of trial and error, I found that the lower
 	   I went with LDA, the worse I got, but running one pass with LDA at full 24D was still beneficial by about a three percent difference in accuracy.
 	   All I did to test this was run a for loop from 1 to 24 inclusive, one for each version of LDA, and compared their relative accuracies. <br><br>
-	   K, i did similar and found, as expected, that the sensitivity to outliers and breakdown of separation when comparing the whole 24 classes to eachother
+	   For k, I did similar and found, as expected, that the sensitivity to outliers and breakdown of separation when comparing the whole 24 classes to eachother
 	   influenced KNN greatly. A k=5 provided the best results. <br><br>
 	   Training splits did not have much affect either way, so I stuck with a 3/4 1/4 split.<br><br>
 
 	   The final accuracy with these hyperparameters was around 67%, which I am quite pleased with. Below Is an image showing the confusion matrix with 
-	   class labels.
+	   class labels. I believe the results could be improved through another method, such as SVMs or using QDA. I also imagine there would be much benefit
+	   in increasing the database size. I am also interested what effect extending the timeframe from 30s to 1m and/or changing the distance formula would have.
 	</p>
+	<img src="confusion_matrix.png" alt="A vs E" style="width:640px;height:480px;">
 </body>
 </html>

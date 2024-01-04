@@ -43,16 +43,16 @@ h2 {
 h3 {
 	color: white;
 	font-size: 20;
-	text-align: center;
-	text-decoration: underline;
-
 }
 
 h4 {
 	color: white;
-	font-size: 24;
-	text-align: left;
+        font-size: 24;
+        text-align: center;
+        text-decoration: underline;
+
 }
+	
 
 p {
 	color: white;
